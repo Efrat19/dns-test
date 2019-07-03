@@ -27,13 +27,9 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	lookup(log)
-}
-
-func lookup(*log logstash){
-	
 	for {
-		err = log.Writeln(net.LookupHost(*n))
+		_, dnsErr := net.LookupHost(*n)
+		err = log.Writeln(dnsErr.Error())
 		if err != nil {
 			fmt.Println(err)
 		}
