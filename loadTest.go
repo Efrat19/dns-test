@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"time"
+	"github.com/heatxsink/go-logstash"
 )
 
 
@@ -20,12 +21,23 @@ func main() {
 		os.Exit(1)
 	}
 
-	for {
-		_, err := net.LookupHost(*n)
-		if err != nil {
-			fmt.Println("error:", err)
-		}
+	// log := logstash.New(os.getEnv("LOGSTASH_HOST"), os.getEnv("LOGSTASH_PORT"), 5)
+	log := logstash.New("172.17.0.1", 9600, 5)
+	_, err := log.Connect()
+	if err != nil {
+		fmt.Println(err)
+	}
+	lookup(log)
+}
 
+func lookup(*log logstash){
+	
+	for {
+		err = log.Writeln(net.LookupHost(*n))
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println("ping")
 		time.Sleep(*p)
 	}
 }
