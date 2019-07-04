@@ -1,4 +1,4 @@
-module dns_test
+module dns-test
 
 go 1.12
 
