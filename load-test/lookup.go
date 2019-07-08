@@ -36,7 +36,7 @@ func getFlags() (string, time.Duration) {
 
 func initLogstash() *logstash.Logstash {
 	port, convErr := strconv.Atoi(os.Getenv("LOGSTASH_PORT"))
-	log := logstash.New(os.GetEnv("LOGSTASH_HOST"), port, 5)
+	log := logstash.New(os.Getenv("LOGSTASH_HOST"), port, 5)
 	_, err := log.Connect()
 	if err != nil {
 		fmt.Println(err)
