@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"time"
+	"strconv"
 	"github.com/heatxsink/go-logstash"
 )
 
@@ -34,7 +35,7 @@ func getFlags() (string, time.Duration) {
 }
 
 func initLogstash() *logstash.Logstash {
-	log := logstash.New(os.getEnv("LOGSTASH_HOST"), os.Getenv("LOGSTASH_PORT"), 5)
+	log := logstash.New(os.GetEnv("LOGSTASH_HOST"), strconv.ParseInt(os.Getenv("LOGSTASH_PORT"), 10, 64), 5)
 	_, err := log.Connect()
 	if err != nil {
 		fmt.Println(err)
