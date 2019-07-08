@@ -11,6 +11,8 @@ COPY . .
 
 RUN go mod init load-test
 
+RUN go get -d -v ./...
+
 RUN go build
 
  #override:
