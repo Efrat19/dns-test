@@ -3,13 +3,13 @@ FROM golang:1.12.6-alpine3.10
 
 RUN apk add git
 
-WORKDIR /go/src/app
+WORKDIR /go/src/load-test
 
 ENV GO111MODULE=on
 
 COPY . . 
 
-RUN go mod init ${PWD}
+RUN go mod init load-test
 
 RUN go build
 
