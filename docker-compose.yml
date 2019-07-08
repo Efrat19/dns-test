@@ -9,8 +9,8 @@ services:
       LOOKUP_SERVER: google.com
       LOGSTASH_HOST: logstash
       LOGSTASH_PORT: 5044
-    depends_on: 
-      - logstash
+    # depends_on: 
+      # - logstash
   logstash:
     image: docker.elastic.co/logstash/logstash:7.2.0
     ports:
