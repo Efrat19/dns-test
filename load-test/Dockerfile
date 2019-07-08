@@ -9,9 +9,9 @@ ENV GO111MODULE=on
 
 COPY . . 
 
-RUN go get -d -v ./...
+RUN go mod init ${PWD}
 
-RUN go install -v ./...
+RUN go build
 
  #override:
 ENV LOOKUP_SERVER localhost
