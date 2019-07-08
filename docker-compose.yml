@@ -1,56 +1,24 @@
 version: '2'
-
 services:
-
-  elasticsearch:
-    build:
-      context: elasticsearch/
+  load-test:
+    build: 
+      context: load-test
       args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+        ALPINE_VERSION: 3.10
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: changeme
-    networks:
-      - elk
-
+      LOOKUP_SERVER: google.com
+      LOGSTASH_HOST: logstash
+      LOGSTASH_PORT: 5044
+    depends_on: 
+      - logstash
   logstash:
-    build:
-      context: logstash/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    image: docker.elastic.co/logstash/logstash:7.2.0
     ports:
-      - "5000:5000"
-      - "9600:9600"
-    environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-  kibana:
-    build:
-      context: kibana/
-      args:
-        ELK_VERSION: $ELK_VERSION
-    volumes:
-      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
-    ports:
-      - "5601:5601"
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-networks:
-
-  elk:
-    driver: bridge
+      - 5044:5044
+      - 9600:9600
+    volumes: 
+      - ./logstash:/usr/share/logstash/pipeline/
+  #   depends_on: 
+  #     - elastic
+  # elastic:
+  #   image: 

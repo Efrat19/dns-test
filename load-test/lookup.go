@@ -12,7 +12,7 @@ import (
 func main() {
 	fmt.Println("start")
 	lookupServer, duration := getFlags()
-	fmt.Println(duration)
+	fmt.Println(lookupServer)
 	logstashServer := initLogstash()
 	fmt.Println("on")
 	fmt.Println("pinging ",lookupServer)
@@ -34,8 +34,7 @@ func getFlags() (string, time.Duration) {
 }
 
 func initLogstash() *logstash.Logstash {
-	// log := logstash.New(os.getEnv("LOGSTASH_HOST"), 9600, 5)
-	log := logstash.New("localhost", 9600, 5)
+	log := logstash.New(os.getEnv("LOGSTASH_HOST"), os.Getenv("LOGSTASH_PORT"), 5)
 	_, err := log.Connect()
 	if err != nil {
 		fmt.Println(err)
@@ -46,6 +45,10 @@ func initLogstash() *logstash.Logstash {
 func lookup (log *logstash.Logstash, server string, duration time.Duration) {
 	for {
 		_, dnsErr := net.LookupHost(server)
+		if dnsErr != nil {
+			fmt.Println(dnsErr)
+			os.Exit(1)
+		}
 		err := log.Writeln(dnsErr.Error())
 		if err != nil {
 			fmt.Println(err)
