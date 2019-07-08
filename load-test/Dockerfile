@@ -1,7 +1,7 @@
 ARG ALPINE_VERSION=3.10
 FROM golang:1.12.6-alpine3.10
 
-ENV GO111MODULE=on
+ENV GO111MODULE=auto
 
  #override:
 ENV LOOKUP_SERVER localhost
