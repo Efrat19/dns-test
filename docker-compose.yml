@@ -5,6 +5,7 @@ services:
       context: load-test
       args:
         ALPINE_VERSION: 3.10
+    command: "-n google.com"
     environment:
       LOOKUP_SERVER: google.com
       LOGSTASH_HOST: logstash
