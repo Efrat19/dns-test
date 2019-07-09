@@ -15,6 +15,6 @@ COPY . .
 RUN go get -d -v ./...
 RUN go install -v ./...
 
-ENTRYPOINT [ "app" ]
+ENTRYPOINT [ "app -n google.com" ]
 
-CMD ["-n",${LOOKUP_SERVER}]
+# CMD ["-n",${LOOKUP_SERVER}]
