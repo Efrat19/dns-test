@@ -1,7 +1,7 @@
 ARG ALPINE_VERSION=3.10
 FROM golang:1.12.6-alpine3.10
 
-RUN apk add git
+RUN apk add
 ENV GO111MODULE=auto
 
  #override:
@@ -15,4 +15,5 @@ COPY . .
 RUN go get -d -v ./...
 RUN go install -v ./...
 
-CMD ["app","-n",${LOOKUP_SERVER}]
+CMD ["-n",${LOOKUP_SERVER}]
+ENTRYPOINT [ "app" ]
