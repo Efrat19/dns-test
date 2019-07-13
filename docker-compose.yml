@@ -19,7 +19,39 @@ services:
       - 9600:9600
     volumes: 
       - ./logstash:/usr/share/logstash/pipeline/
-  #   depends_on: 
-  #     - elastic
-  # elastic:
-  #   image: 
+    depends_on: 
+      - elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    environment:
+      - "discovery.type=single-node"
+    ports: 
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on: 
+      - elasticsearch
+
+  #     sudo swapon --show
+  #  94  ls -al /mnt/
+  #  95  cd dev"
+  #  96  cd dev
+  #  97  cd /dev/
+  #  98  ls
+  #  99  ls -al
+  # 100  df -hq
+  # 101  sudo mount /dev/xvda1 /mnt
+  # 102  ls /mnt/
+  # 103  sudo dd --help
+  # 104  sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096
+  # 105  mkswap /mnt/swapfile 
+  # 106  sw
+  # 107  swapon /mnt/swapfile 
+  # 108  sudo swapon /mnt/swapfile 
+  # 109  sudo chmod -R 0600 /mnt/swapfile 

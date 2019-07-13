@@ -49,13 +49,13 @@ func lookup (log *logstash.Logstash, server string, duration time.Duration) {
 		_, dnsErr := net.LookupHost(server)
 		if dnsErr != nil {
 			fmt.Println(dnsErr)
-			os.Exit(1)
+			err := log.Writeln(dnsErr.Error())
+			if err != nil {
+				fmt.Println("error on writing to logstash")
+				fmt.Println(err)
+				os.Exit(1)
+			}
 		}
-		err := log.Writeln(dnsErr.Error())
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println("ping")
 		time.Sleep(duration)
 	}
 }
