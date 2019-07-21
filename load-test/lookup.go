@@ -42,7 +42,7 @@ func initLogstash() *logstash.Logstash {
 	if err != nil {
 		fmt.Println(err)
 	}
-	logErr := log.Writeln("test")
+	logErr := log.Writeln("start")
 	if logErr != nil {
 		fmt.Println(logErr.Error())
 	}
@@ -58,7 +58,7 @@ func lookup (log *logstash.Logstash, server string, duration time.Duration) {
 			if err != nil {
 				fmt.Println("error on writing to logstash")
 				fmt.Println(err)
-				os.Exit(1)
+				os.Exit(2)
 			}
 		}
 		time.Sleep(duration)

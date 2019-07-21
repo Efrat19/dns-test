@@ -1,0 +1,17 @@
+  #     sudo swapon --show
+  #  94  ls -al /mnt/
+  #  95  cd dev"
+  #  96  cd dev
+  #  97  cd /dev/
+  #  98  ls
+  #  99  ls -al
+  # 100  df -hq
+  # 101  sudo mount /dev/xvda1 /mnt
+  # 102  ls /mnt/
+  # 103  sudo dd --help
+  # 104  sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096
+  # 105  mkswap /mnt/swapfile 
+  # 106  sw
+  # 107  swapon /mnt/swapfile 
+  # 108  sudo swapon /mnt/swapfile 
+  # 109  sudo chmod -R 0600 /mnt/swapfile 

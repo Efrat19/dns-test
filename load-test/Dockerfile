@@ -1,5 +1,4 @@
-ARG ALPINE_VERSION=3.10
-FROM golang:1.12.6-alpine3.10
+FROM go_base
 
 RUN apk add git
 ENV GO111MODULE=auto
